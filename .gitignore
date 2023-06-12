@@ -59,3 +59,5 @@ package-lock.json
 Gemfile.lock
 # Ignore Yarn lock file
 yarn.lock
+
+.idea/
