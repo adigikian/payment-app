@@ -2,8 +2,7 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
-  # If you are using has_secure_password:
+         :jwt_authenticatable, jwt_revocation_strategy: JwtDenylist
 
   # Define enum for role
   enum role: { admin: 0, merchant: 1 }

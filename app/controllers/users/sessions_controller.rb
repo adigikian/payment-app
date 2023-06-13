@@ -20,4 +20,12 @@ class Users::SessionsController < Devise::SessionsController
     signed_out = (Devise.sign_out_all_scopes ? sign_out : sign_out(resource_name))
     render json: { success: signed_out }
   end
+
+  private
+  def respond_with(resource, _opts = {})
+    render json: resource
+  end
+  def respond_to_on_destroy
+    render json: { message: "Logged out." }
+  end
 end

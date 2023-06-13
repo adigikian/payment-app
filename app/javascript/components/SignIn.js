@@ -24,6 +24,7 @@ const SignIn = () => {
             .post('/users/sign_in', { user })
             .then(response => {
                 console.log('User signed in successfully', response);
+                localStorage.setItem('token',response.headers.get("Authorization"))
                 setUser(response.data.user);
 
                 if (response.data.user.role === 'admin') {

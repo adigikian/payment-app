@@ -30,16 +30,9 @@ const SignUp = () => {
         axios
             .post("/users", { user })
             .then((response) => {
-                console.log("User created successfully", response);
-
-                setUser(response.data);  // Set the user in the parent component
-
-                // Redirect to the correct page depending on the user's role
-                if (response.data.role === 'admin') {
-                    navigate('/merchants');
-                } else {
-                    navigate('/transactions');
-                }
+                localStorage.setItem('token',response.headers.get("Authorization"))
+                alert("User created successfully");
+                navigate('/');
             })
             .catch((error) => {
                 console.error("There was an error!", error);

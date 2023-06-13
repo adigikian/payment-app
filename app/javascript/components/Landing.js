@@ -33,8 +33,7 @@ const Landing = () => {
 
     return (
         <div className="container">
-            <h1 className="mt-5">Welcome to Payment System</h1>xl
-
+            <h1 className="mt-5">Welcome to Payment System</h1>
             {!user && (
                 <>
                     <p className="mt-3">
