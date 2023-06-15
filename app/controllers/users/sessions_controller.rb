@@ -11,6 +11,7 @@ class Users::SessionsController < Devise::SessionsController
             id: resource.id,
             email: resource.email,
             name: resource.name,
+            merchant_id: resource&.merchant&.id,
             role: resource.role # assuming the user model has a 'role' attribute
         }
     }

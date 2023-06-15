@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_13_070614) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_13_133226) do
   create_table "jwt_denylist", force: :cascade do |t|
     t.string "jti", null: false
     t.datetime "exp", null: false
@@ -24,8 +24,24 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_13_070614) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "admin_id"
+    t.float "total_transaction_sum"
     t.index ["admin_id"], name: "index_merchants_on_admin_id"
     t.index ["user_id"], name: "index_merchants_on_user_id"
+  end
+
+  create_table "transactions", force: :cascade do |t|
+    t.string "uuid"
+    t.decimal "amount"
+    t.integer "status"
+    t.string "customer_email"
+    t.string "customer_phone"
+    t.integer "merchant_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "type"
+    t.integer "parent_id"
+    t.index ["merchant_id"], name: "index_transactions_on_merchant_id"
+    t.index ["parent_id"], name: "index_transactions_on_parent_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -42,4 +58,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_13_070614) do
   end
 
   add_foreign_key "merchants", "users"
+  add_foreign_key "transactions", "merchants"
 end

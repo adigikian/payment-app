@@ -7,6 +7,7 @@ ruby "3.1.2"
 gem "rails", "~> 7.0.4"
 gem 'rack-cors'
 gem 'devise-jwt'
+gem 'whenever', require: false
 # 'dotenv-rails' is for storing secret key in ENV file
 gem 'dotenv-rails', groups: [:development, :test]
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
@@ -67,12 +68,15 @@ group :development do
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
 end
-
+group :development, :test do
+  gem 'rspec-rails', '~> 6.0.0'
+  gem "factory_bot_rails"
+  gem 'faker'
+end
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
   gem "selenium-webdriver"
   gem "webdrivers"
 end
-
 gem "devise", "~> 4.9"

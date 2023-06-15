@@ -6,6 +6,9 @@ Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
-   root "welcome#index"
-  match '*path', to: 'pages#index', via: :all
+  root "welcome#index"
+  post 'payments', to: 'payments#create'
+  patch 'payments/:id', to: 'payments#update'
+  put 'payments/:id', to: 'payments#update'
+  get 'payments', to: 'payments#index'
 end

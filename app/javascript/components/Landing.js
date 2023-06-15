@@ -32,15 +32,15 @@ const Landing = () => {
     };
 
     return (
-        <div className="container">
+        <div className="container text-center">
             <h1 className="mt-5">Welcome to Payment System</h1>
             {!user && (
                 <>
                     <p className="mt-3">
-                        <Link className="btn btn-primary mr-3 ml-3" to="/signup">
+                        <Link className="btn btn-primary me-2" to="/signup">
                             Sign Up
                         </Link>
-                        <Link className="btn btn-secondary" to="/signin">
+                        <Link className="btn btn-secondary ms-2" to="/signin">
                             Sign In
                         </Link>
                     </p>
@@ -57,7 +57,7 @@ const Landing = () => {
 
                     {user.role === 'merchant' && (
                         <p className="mt-3">
-                            <Link className="btn btn-primary mr-3" to="/transactions">
+                            <Link className="btn btn-primary mr-2" to="/transactions">
                                 Transactions
                             </Link>
                         </p>
@@ -65,7 +65,7 @@ const Landing = () => {
 
                     {user.role === 'admin' && (
                         <p className="mt-3">
-                            <Link className="btn btn-primary mr-3" to="/merchants">
+                            <Link className="btn btn-primary mr-2" to="/merchants">
                                 Merchants
                             </Link>
                         </p>
