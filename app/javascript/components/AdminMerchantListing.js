@@ -1,8 +1,13 @@
-// AdminMerchantListing.js
 import React from 'react';
+import MerchantList from './MerchantList';
 
 const AdminMerchantListing = () => {
-    return <h1>Admin Merchant Listing Page</h1>;
+    return (
+        <div>
+            <h1>Merchant Listing</h1>
+            <MerchantList></MerchantList>
+        </div>
+    );
 };
 
 export default AdminMerchantListing;

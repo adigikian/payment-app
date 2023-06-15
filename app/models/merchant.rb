@@ -8,6 +8,8 @@ class Merchant < ApplicationRecord
 
     validates :description, presence: true
 
+    accepts_nested_attributes_for :user
+
     def update_total_amount(amount)
         self.total_transaction_sum += amount
         save!

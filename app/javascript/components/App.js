@@ -9,6 +9,7 @@ import UserContext from './UserContext';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap';
 import '@popperjs/core';
+import MerchantCreateEdit from "./MerchantCreateEdit";
 
 const App = () => {
     const [user, setUser] = useState(null);
@@ -22,6 +23,8 @@ const App = () => {
                     <Route path="/signin" element={user ? <Navigate to="/" replace={true} /> : <SignIn />} />
                     <Route path="/transactions" element={user && user.role === 'merchant' ? <MerchantTransactions /> : <Navigate to="/signin" replace={true} />} />
                     <Route path="/merchants" element={user && user.role === 'admin' ? <AdminMerchantListing /> : <Navigate to="/signin" replace={true} />} />
+                    <Route path="/merchants/create" element={user && user.role === 'admin' ? <MerchantCreateEdit /> : <Navigate to="/merchants/create" replace={true} />} />
+                    <Route path="/merchants/:id/edit" element={user && user.role === 'admin' ? <MerchantCreateEdit /> : <Navigate to="/merchants/create" replace={true} />} />
                 </Routes>
             </Router>
         </UserContext.Provider>

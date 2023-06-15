@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root "welcome#index"
+  resources :merchants
   post 'payments', to: 'payments#create'
   patch 'payments/:id', to: 'payments#update'
   put 'payments/:id', to: 'payments#update'
