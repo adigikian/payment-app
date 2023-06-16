@@ -1,10 +1,14 @@
-class Users::RegistrationsController < Devise::RegistrationsController
-  respond_to :json
+# frozen_string_literal: true
 
-  def create
-    build_resource(sign_up_params)
+module Users
+  class RegistrationsController < Devise::RegistrationsController
+    respond_to :json
 
-    resource.save
-    render_resource(resource)
+    def create
+      build_resource(sign_up_params)
+
+      resource.save
+      render_resource(resource)
+    end
   end
 end

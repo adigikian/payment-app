@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import axiosInstance from './axiosInstance';
 
 const TransactionItem = ({transaction,onEdit }) => {
     const [status, setStatus] = useState(transaction.status);
@@ -7,7 +7,7 @@ const TransactionItem = ({transaction,onEdit }) => {
     const handleStatusChange = event => {
         const newStatus = event.target.value;
 
-        axios.put(`/payments/${transaction.id}`, { status: newStatus })
+        axiosInstance.put(`/payments/${transaction.id}`, { status: newStatus })
             .then(response => {
                 const data = response.data;
                 console.log('Payment status updated successfully', data);

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import axiosInstance from './axiosInstance';
 import { useNavigate } from 'react-router-dom';
 
 const MerchantList = () => {
@@ -12,7 +12,7 @@ const MerchantList = () => {
 
     const fetchMerchants = async () => {
         try {
-            const response = await axios.get('/merchants');
+            const response = await axiosInstance.get('/merchants');
             setMerchants(response.data);
         } catch (error) {
             console.error(error);
@@ -21,7 +21,7 @@ const MerchantList = () => {
 
     const handleDelete = async (id) => {
         try {
-            await axios.delete(`/merchants/${id}`);
+            await axiosInstance.delete(`/merchants/${id}`);
             fetchMerchants(); // Refresh the merchant list
             alert('Merchant deleted successfully!');
         } catch (error) {

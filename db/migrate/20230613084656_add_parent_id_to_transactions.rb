@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # migration
 class AddParentIdToTransactions < ActiveRecord::Migration[6.1]
   def change

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ReversalTransaction < Transaction
   include Transactions
 
@@ -11,7 +13,7 @@ class ReversalTransaction < Transaction
     :reversed
   end
 
-  def is_a_reversal?
+  def a_reversal?
     true
   end
 end

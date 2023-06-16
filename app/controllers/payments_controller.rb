@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class PaymentsController < ApplicationController
-  # before_action :authenticate_user!
+  before_action :authenticate_user!
 
   def create
     service = TransactionService.new(params: payment_params)
@@ -41,7 +43,8 @@ class PaymentsController < ApplicationController
   private
 
   def payment_params
-    params.require(:payment).permit(:amount, :customer_email, :customer_phone, :merchant_id, :type, :status, :parent_id)
+    params.require(:payment).permit(:amount, :customer_email, :customer_phone, :merchant_id, :type, :status,
+                                    :parent_id)
   end
 
   def update_params

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Transaction < ApplicationRecord
   belongs_to :merchant
   belongs_to :parent, class_name: 'Transaction', optional: true, foreign_key: 'parent_id'
@@ -6,7 +8,7 @@ class Transaction < ApplicationRecord
   enum status: { pending: 0, approved: 1, reversed: 2, refunded: 3, error: 4 }
 
   validates :uuid, presence: true, uniqueness: true
-  validates :status, presence: true, inclusion: { in: %w(pending approved reversed refunded error) }
+  validates :status, presence: true, inclusion: { in: %w[pending approved reversed refunded error] }
   validates :customer_email, presence: true
   validates :customer_phone, presence: true
   before_validation :set_uuid
@@ -21,9 +23,9 @@ class Transaction < ApplicationRecord
   end
 
   def parent_transaction_must_be_approved_or_refunded
-    unless parent.approved? || parent.refunded?
-      errors.add(:parent, "Parent transaction must be in approved or refunded state.")
-    end
+    return if parent.approved? || parent.refunded?
+
+    errors.add(:parent, 'Parent transaction must be in approved or refunded state.')
   end
 
   def set_uuid
@@ -31,6 +33,6 @@ class Transaction < ApplicationRecord
   end
 
   def merchant_must_be_active
-    errors.add(:merchant, "must be in active state") unless merchant.active?
+    errors.add(:merchant, 'must be in active state') unless merchant.active?
   end
 end

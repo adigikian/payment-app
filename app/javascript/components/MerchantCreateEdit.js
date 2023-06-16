@@ -1,5 +1,5 @@
 import React, { useState, useEffect,useContext } from 'react';
-import axios from 'axios';
+import axiosInstance from './axiosInstance';
 import { useParams, useNavigate } from 'react-router-dom';
 import UserContext from './UserContext';
 
@@ -22,7 +22,7 @@ const MerchantCreateEdit = () => {
 
     const fetchMerchant = async () => {
         try {
-            const response = await axios.get(`/merchants/${id}`);
+            const response = await axiosInstance.get(`/merchants/${id}`);
             setName(response.data.name);
             setUserName(response.data.user_name);
             setEmail(response.data.email);
@@ -48,9 +48,9 @@ const MerchantCreateEdit = () => {
                 }
             };
             if (id) {
-                await axios.put(`/merchants/${id}`, payload);
+                await axiosInstance.put(`/merchants/${id}`, payload);
             } else {
-                await axios.post('/merchants', payload);
+                await axiosInstance.post('/merchants', payload);
             }
             navigate('/merchants'); // Redirect to Merchant List component
         } catch (error) {

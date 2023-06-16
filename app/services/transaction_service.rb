@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # app/services/transaction_service.rb
 class TransactionService
   def initialize(params: {})
@@ -6,6 +8,7 @@ class TransactionService
 
   def create_transaction
     return { error: 'Merchant not found' } if @params[:merchant_id].blank?
+
     transaction_type = @params[:type].constantize
     transaction = transaction_type.new(@params)
     if transaction.save
@@ -28,10 +31,8 @@ class TransactionService
 
   def fetch_transactions_for_merchant
     merchant = Merchant.find_by(id: @params[:merchant_id])
-    if merchant
-      merchant.transactions.map{ |transaction| transaction.as_json.merge(type: transaction.class.name)}
-    else
-      nil
-    end
+    return unless merchant
+
+    merchant.transactions.map { |transaction| transaction.as_json.merge(type: transaction.class.name) }
   end
 end

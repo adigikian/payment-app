@@ -1,5 +1,8 @@
+# frozen_string_literal: true
+
 class MerchantsController < ApplicationController
-  before_action :set_merchant, only: [:show, :update, :destroy]
+  before_action :authenticate_user!
+  before_action :set_merchant, only: %i[show update destroy]
 
   def index
     merchants = Merchant.all
@@ -16,7 +19,7 @@ class MerchantsController < ApplicationController
     if merchant.save
       render json: merchant, status: :created
     else
-      render json: { error: merchant.errors.full_messages.join(", ") }, status: :unprocessable_entity
+      render json: { error: merchant.errors.full_messages.join(', ') }, status: :unprocessable_entity
     end
   end
 
@@ -24,7 +27,7 @@ class MerchantsController < ApplicationController
     if @merchant.update(merchant_params)
       render json: @merchant, status: :ok
     else
-      render json: { error: @merchant.errors.full_messages.join(", ") }, status: :unprocessable_entity
+      render json: { error: @merchant.errors.full_messages.join(', ') }, status: :unprocessable_entity
     end
   end
 
@@ -40,6 +43,6 @@ class MerchantsController < ApplicationController
   end
 
   def merchant_params
-    params.require(:merchant).permit(:description, :status, :admin_id, user_attributes: [:name, :email, :role])
+    params.require(:merchant).permit(:description, :status, :admin_id, user_attributes: %i[name email role])
   end
 end

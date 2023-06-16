@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import axios from 'axios';
+import axiosInstance from './axiosInstance';
 import { useNavigate } from 'react-router-dom';
 import UserContext from './UserContext';
 
@@ -29,8 +29,7 @@ const TransactionForm = ({ onCancel, onTransactionCreate }) => {
             },
         };
 
-        axios
-            .post('/payments', payload)
+        axiosInstance.post('/payments', payload)
             .then(response => {
                 console.log('Payment processed successfully', response.data);
                 onTransactionCreate(response.data);

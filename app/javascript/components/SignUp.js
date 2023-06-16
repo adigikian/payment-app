@@ -1,9 +1,9 @@
 import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import axiosInstance from './axiosInstance';
 import UserContext from './UserContext';
 
-axios.defaults.headers.common['X-CSRF-Token'] = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+axiosInstance.defaults.headers.common['X-CSRF-Token'] = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
 const SignUp = () => {
     const [name, setName] = useState("");
@@ -27,8 +27,7 @@ const SignUp = () => {
             role
         };
 
-        axios
-            .post("/users", { user })
+        axiosInstance.post("/users", { user })
             .then((response) => {
                 localStorage.setItem('token',response.headers.get("Authorization"))
                 alert("User created successfully");

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RefundTransaction < Transaction
   include Transactions
 

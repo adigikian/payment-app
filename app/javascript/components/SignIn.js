@@ -1,9 +1,9 @@
 import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import axiosInstance from './axiosInstance';
 import UserContext from './UserContext';
 
-axios.defaults.headers.common['X-CSRF-Token'] = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+axiosInstance.defaults.headers.common['X-CSRF-Token'] = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
 const SignIn = () => {
     const [email, setEmail] = useState('');
@@ -20,8 +20,7 @@ const SignIn = () => {
             password
         };
 
-        axios
-            .post('/users/sign_in', { user })
+        axiosInstance.post('/users/sign_in', { user })
             .then(response => {
                 console.log('User signed in successfully', response);
                 localStorage.setItem('token',response.headers.get("Authorization"))

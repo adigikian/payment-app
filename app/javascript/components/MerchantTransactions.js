@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import TransactionForm from './TransactionForm';
 import TransactionItem from './TransactionItem';
-import axios from 'axios';
+import axiosInstance from './axiosInstance';
 import UserContext from './UserContext';
 
 const MerchantTransactions = () => {
@@ -15,8 +15,7 @@ const MerchantTransactions = () => {
     }, []);
 
     const fetchMerchantTransactions = () => {
-        axios
-            .get(`/payments?merchant_id=${user.merchant_id}`)
+        axiosInstance.get(`/payments?merchant_id=${user.merchant_id}`)
             .then(response => {
                 const data = response.data;
                 setTransactions(data);

@@ -1,25 +1,47 @@
-import React, { useContext } from 'react';
+import React, { useContext,useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import UserContext from './UserContext';
-import axios from 'axios';
+import axiosInstance from './axiosInstance';
 import { useNavigate } from 'react-router-dom';
 
 const Landing = () => {
     const [user, setUser] = useContext(UserContext);
     const navigate = useNavigate();
+    useEffect(() => {
+        if (localStorage.getItem('token')) {
+            getUser();
+        }
+    }, []);
+
+    const getUser = () => {
+        axiosInstance.get('/user', {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+        })
+            .then(response => {
+                setUser(response.data);
+                console.log(response);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+
+    }
 
     const logoutUser = () => {
-        axios
-            .delete('/users/sign_out', {
+        axiosInstance.delete('/users/sign_out', {
                 headers: {
                     Accept: 'application/json',
                     'Content-Type': 'application/json',
                     'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content // for Rails CSRF protection
                 },
-                withCredentials: true // to include the cookie with the request
             })
             .then(response => {
                 if (response.data.success) {
+                    localStorage.removeItem('token');
                     // handle successful logout here
                     console.log('User logged out');
                     setUser(null);
