@@ -8,6 +8,7 @@ axiosInstance.defaults.headers.common['X-CSRF-Token'] = document.querySelector('
 const SignIn = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [error, setError] = useState(null); // State variable for error message
 
     const navigate = useNavigate();
     const [user, setUser] = useContext(UserContext);
@@ -23,7 +24,7 @@ const SignIn = () => {
         axiosInstance.post('/users/sign_in', { user })
             .then(response => {
                 console.log('User signed in successfully', response);
-                localStorage.setItem('token',response.headers.get("Authorization"))
+                localStorage.setItem('token', response.headers.get("Authorization"))
                 setUser(response.data.user);
 
                 if (response.data.user.role === 'admin') {
@@ -34,12 +35,14 @@ const SignIn = () => {
             })
             .catch(error => {
                 console.error('There was an error!', error);
+                setError('An error occurred. Please try again.'); // Set the error message
             });
     };
 
     return (
         <form className="container mt-5" onSubmit={handleSubmit}>
             <h3>Sign In</h3>
+            {error && <div className="alert alert-danger">{error}</div>} {/* Render error message if error exists */}
             <div className="mb-3">
                 <label htmlFor="email" className="form-label">Email</label>
                 <input type="email" className="form-control" id="email" placeholder="Email" onChange={e => setEmail(e.target.value)} required />

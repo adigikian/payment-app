@@ -5,7 +5,7 @@ class MerchantsController < ApplicationController
   before_action :set_merchant, only: %i[show update destroy]
 
   def index
-    merchants = Merchant.all
+    merchants = current_user.admin_merchants.all
     render json: merchants, status: :ok
   end
 
