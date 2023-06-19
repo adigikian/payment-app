@@ -75,6 +75,7 @@ group :development, :test do
   gem 'factory_bot_rails'
   gem 'faker'
   gem 'rspec-rails', '~> 6.0.0'
+  gem 'shoulda-matchers', '~> 4.0'
 end
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]

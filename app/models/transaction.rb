@@ -7,7 +7,8 @@ class Transaction < ApplicationRecord
 
   enum status: { pending: 0, approved: 1, reversed: 2, refunded: 3, error: 4 }
 
-  validates :uuid, presence: true, uniqueness: true
+  validates :merchant, presence: true
+  validates :uuid, uniqueness: true
   validates :status, presence: true, inclusion: { in: %w[pending approved reversed refunded error] }
   validates :customer_email, presence: true
   validates :customer_phone, presence: true
@@ -29,10 +30,10 @@ class Transaction < ApplicationRecord
   end
 
   def set_uuid
-    self.uuid = SecureRandom.uuid
+    self.uuid ||= SecureRandom.uuid
   end
 
   def merchant_must_be_active
-    errors.add(:merchant, 'must be in active state') unless merchant.active?
+    errors.add(:merchant, 'must be in active state') if merchant && !merchant.active?
   end
 end

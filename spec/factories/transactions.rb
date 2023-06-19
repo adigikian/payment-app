@@ -4,7 +4,7 @@
 FactoryBot.define do
   factory :transaction do
     uuid { SecureRandom.uuid }
-    status { Transaction.statuses.keys.sample }
+    status { 'pending' }
     customer_email { Faker::Internet.email }
     customer_phone { Faker::PhoneNumber.cell_phone_in_e164 }
     merchant

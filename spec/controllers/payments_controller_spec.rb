@@ -1,11 +1,12 @@
-# frozen_string_literal: true
-
-# spec/controllers/payments_controller_spec.rb
 require 'rails_helper'
 
 RSpec.describe PaymentsController, type: :controller do
-  let(:merchant) { create(:merchant) } # assumes you have a merchant factory
-  let(:transaction) { create(:transaction, merchant:) } # assumes you have a transaction factory
+  let(:user) { create(:user) }
+  let(:merchant) { create(:merchant) }
+  let(:transaction) { create(:transaction, merchant: merchant) }
+  before do
+    sign_in user
+  end
 
   describe '#create' do
     context 'with valid params' do
@@ -58,7 +59,7 @@ RSpec.describe PaymentsController, type: :controller do
     end
 
     it 'updates the transaction' do
-      put(:update, params:)
+      put(:update, params: params)
       transaction.reload
       expect(transaction.status).to eq('approved')
     end
@@ -73,7 +74,7 @@ RSpec.describe PaymentsController, type: :controller do
       end
 
       it 'fetches transactions for a merchant' do
-        get(:index, params:)
+        get(:index, params: params)
         expect(response).to have_http_status(:ok)
       end
     end
@@ -86,7 +87,7 @@ RSpec.describe PaymentsController, type: :controller do
       end
 
       it 'returns not found status' do
-        get(:index, params:)
+        get(:index, params: params)
         expect(response).to have_http_status(:not_found)
       end
     end

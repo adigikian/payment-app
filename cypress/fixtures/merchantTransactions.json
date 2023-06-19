@@ -1,0 +1,14 @@
+[
+  {
+    "id": 1,
+    "type": "AuthorizeTransaction",
+    "amount": 100,
+    "description": "Test transaction 1"
+  },
+  {
+    "id": 2,
+    "type": "AuthorizeTransaction",
+    "amount": 200,
+    "description": "Test transaction 2"
+  }
+]
