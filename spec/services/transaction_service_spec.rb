@@ -129,7 +129,7 @@ RSpec.describe TransactionService, type: :service do
 
     it 'returns all transactions for the merchant' do
       authorize_transaction
-      result = service.fetch_transactions_for_merchant
+      result = service.merchant_transactions
       expect(result).to be_a Array
       expect(result.size).to eq 1
       expect(result.first[:type]).to eq 'AuthorizeTransaction'

@@ -1,5 +1,4 @@
-# frozen_string_literal: true
-
+# app/models/transaction.rb
 class Transaction < ApplicationRecord
   belongs_to :merchant
   belongs_to :parent, class_name: 'Transaction', optional: true, foreign_key: 'parent_id'
@@ -9,7 +8,6 @@ class Transaction < ApplicationRecord
 
   validates :merchant, presence: true
   validates :uuid, uniqueness: true
-  validates :status, presence: true, inclusion: { in: %w[pending approved reversed refunded error] }
   validates :customer_email, presence: true
   validates :customer_phone, presence: true
   before_validation :set_uuid

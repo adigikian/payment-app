@@ -7,32 +7,23 @@ class TransactionService
   end
 
   def create_transaction
-    return { error: 'Merchant not found' } if @params[:merchant_id].blank?
-
+    return  if @params[:merchant_id].blank?
     transaction_type = @params[:type].constantize
     transaction = transaction_type.new(@params)
-    if transaction.save
-      transaction
-    else
-      { errors: transaction.errors.full_messages }
-    end
+    transaction.save
+    transaction
   end
 
   def update_transaction
     transaction = Transaction.find(@params[:id])
     transaction.status = @params[:status]
-
-    if transaction.save
-      transaction
-    else
-      { errors: transaction.errors.full_messages }
-    end
+    transaction.save
+    transaction
   end
 
-  def fetch_transactions_for_merchant
+  def merchant_transactions
     merchant = Merchant.find_by(id: @params[:merchant_id])
     return unless merchant
-
     merchant.transactions.map { |transaction| transaction.as_json.merge(type: transaction.class.name) }
   end
 end
